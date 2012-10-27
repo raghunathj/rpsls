@@ -1,9 +1,12 @@
+//Global Variables
 var prompt = require("prompt");
 var d = Array(54).join("-");
 var userWeapon,userTempName,userTempPower,computerWeapon,computerTempName,computerTempPower;
 var rounds,userwins =0,computerwins = 0,ties = 0;
 var roundsCompleted = 0;
 var options = new Array();
+
+//For User Input (prompt)
 var userround = {
     properties: {
       round: {
@@ -25,11 +28,13 @@ var userselection = {
     }
   };
 prompt.start();
+
 //Main Screen
 console.log(d);
 console.log("|    Welcome to ROCK-PAPER-SCISSORS-LIZARD-SPOCK    |");
 levelscreen();
 
+//Level Screen
 function levelscreen(){
 	console.log(d);
 	prompt.get(userround,function(err,result){
@@ -38,6 +43,7 @@ function levelscreen(){
 	});
 }
 
+//Weapon Screen
 function weaponscreen(){
 	console.log(d);
 	console.log("|                 Select you weapon                 |");
@@ -56,6 +62,7 @@ function weaponscreen(){
 	});
 }
 
+//Main Game Action
 function done(){
 	var selection = getoptions(userWeapon);
 	userTempName = selection.name;
@@ -68,6 +75,7 @@ function done(){
 	ingame();
 	var winner = (computerTempPower - userTempPower) % 5;
 	screenmapper(" ");
+	//Check who wins based on power
 	if(winner == 1 || winner == 2){
 		screenmapper("Computer Wins !");
 		computerwins = computerwins + 1;
@@ -83,7 +91,7 @@ function done(){
 	gameover();
 }
 
-//
+//Get user / computer selected weapon and its corresponding strength
 function getoptions(id){
 	options[1] = {name:'Rock',power:'0'};
 	options[2] = {name:'Paper',power:'2'};
@@ -93,10 +101,12 @@ function getoptions(id){
 	return options[id];
 }
 
+//A simple random number
 function runai(){
 	return Math.floor((Math.random()*5)+1);
 }
 
+//To show which round the user is using
 function ingame(){
 	console.log(d);
 	screenmapper("Round "+roundsCompleted);
@@ -106,6 +116,7 @@ function ingame(){
 	console.log(d);
 }
 
+//This will help in centering the text on the screen. Its just a UI function
 function screenmapper(thestring){
 	var stringlen = thestring.length;
 	var def = 52;
@@ -115,6 +126,7 @@ function screenmapper(thestring){
 	console.log('|'+r+thestring+r+'|');
 }
 
+//Once the result is show this will run and check if there are more rounds to be played
 function gameover(){
 	if(rounds != roundsCompleted){
 		weaponscreen();
@@ -123,6 +135,7 @@ function gameover(){
 	}
 }
 
+//Game Over ;)
 function exitprompt(){
 	console.log('');
 	console.log(d);
